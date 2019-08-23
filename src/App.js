@@ -1,26 +1,88 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Header, Icon } from 'semantic-ui-react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.css'
+import { TaskClient } from './TaskClient'
+import { TaskList } from './components/task-list'
+
+class App extends React.Component {
+  state = {
+    tasks: []
+  }
+
+  async componentDidMount() {
+    const tasks = await TaskClient.get()
+    this.setState({ tasks })
+  }
+
+  handleCheck = async (task) => {
+    const updatedTask = await TaskClient.update(task.id, {
+      complete: !task.complete
+    })
+    const tasks = this.state.tasks.map(task => {
+      if (task.id === updatedTask.id) {
+        return updatedTask
+      }
+      return task
+    })
+
+    this.setState({ tasks })
+    // console.log(updatedTask)
+  }
+
+  handleDelete = async (taskId) => {
+    try {
+      await TaskClient.deleteTask(taskId)
+      const tasks = this.state.tasks.filter(task => task.id !== taskId)
+      this.setState({ tasks })
+    } catch (error) {
+      console.log("Couldn't delete", error)
+    }
+  }
+
+  handleUpdate = async (taskId, newDescription) => {
+    try {
+      const updatedTask = await TaskClient.update(taskId, {
+        description: newDescription
+      })
+
+      const tasks = this.state.tasks.map(task => {
+        if ( task.id === updatedTask.id) {
+          return updatedTask
+        }
+        return task
+      })
+
+      this.setState({ tasks })
+    } catch (error) {
+      console.log('OH NO update failed :(')
+    }
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Header size="huge" icon>
+          <Icon name="clipboard check" size="big" />
+          To Do
+        </Header>
+
+        <TaskList
+          title="Incomplete Tasks"
+          tasks={this.state.tasks.filter(task => !task.complete)}
+          handleCheck={this.handleCheck}
+          handleDelete={this.handleDelete}
+          handleUpdate={this.handleUpdate} />
+
+        <TaskList
+          title="Complete Tasks"
+          tasks={this.state.tasks.filter(task => task.complete)}
+          handleCheck={this.handleCheck}
+          handleDelete={this.handleDelete}
+          handleUpdate={this.handleUpdate} />
+      </div>
+    )
+  }
 }
 
 export default App;
