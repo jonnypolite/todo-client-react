@@ -4,6 +4,7 @@ import { Header, Icon } from 'semantic-ui-react'
 import './App.css'
 import { TaskClient } from './TaskClient'
 import { TaskList } from './components/task-list'
+import { TaskForm } from './components/task-form'
 
 class App extends React.Component {
   state = {
@@ -27,7 +28,6 @@ class App extends React.Component {
     })
 
     this.setState({ tasks })
-    // console.log(updatedTask)
   }
 
   handleDelete = async (taskId) => {
@@ -66,6 +66,8 @@ class App extends React.Component {
           <Icon name="clipboard check" size="big" />
           To Do
         </Header>
+
+        <TaskForm />
 
         <TaskList
           title="Incomplete Tasks"
