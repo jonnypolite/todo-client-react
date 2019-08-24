@@ -1,0 +1,27 @@
+.task {
+  .deleteIcon, .editIcon {
+    cursor: pointer;
+  }
+
+  .ui.button {
+    font-size: .7rem;
+  }
+
+  .ui.form {
+    display: flex;
+    justify-content: space-between;
+
+    .field {
+      display: flex;
+      flex: 1;
+      margin: 0px 5px 0px 0px;
+      height: 25px;
+    }
+
+    .buttons {
+      display: flex;
+      height: 25px;
+    }
+
+  }
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Header, Icon } from 'semantic-ui-react'
 
-import './App.css'
+import './App.scss'
 import { TaskClient } from './TaskClient'
 import { TaskList } from './components/task-list'
 import { TaskForm } from './components/task-form'

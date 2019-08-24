@@ -1,0 +1,12 @@
+.taskForm {
+  width: 500px;
+  margin-bottom: 10px;
+
+  .ui.attached.segment {
+    height: 70px;
+  }
+  .ui.form {
+    display: flex;
+    justify-content: space-between;
+  }
+}

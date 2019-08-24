@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { Icon } from 'semantic-ui-react'
 
-import './Task.css';
+import './Task.scss';
 
 class Task extends React.Component {
   state = {
@@ -37,7 +37,7 @@ class Task extends React.Component {
 
   renderDisplayTask = () => {
     return (
-      <div>
+      <div className="task">
         <div className="ui checkbox">
           <input
             onClick={this.onCheckClick}
@@ -62,7 +62,7 @@ class Task extends React.Component {
 
   renderEditTask = () => {
     return (
-      <div>
+      <div className="task">
         <form
           onSubmit={this.onFormSubmit}
           className="ui form">

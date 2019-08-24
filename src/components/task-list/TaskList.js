@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { Header, List, Segment } from 'semantic-ui-react'
 
-import './TaskList.css';
+import './TaskList.scss';
 import { Task } from '../task'
 
 class TaskList extends React.Component {
@@ -30,7 +30,7 @@ class TaskList extends React.Component {
 
   render() {
     return (
-      <div className="task-list">
+      <div className="taskList">
         <Header as="h1" textAlign="left" attached="top">
           {this.props.title}
         </Header>
