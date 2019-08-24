@@ -30,7 +30,9 @@ class TaskForm extends React.Component {
               <label> What do you want to do?</label>
               <input type="text" value={this.state.value} onChange={this.handleChange} />
             </div>
-            <button className="ui button" type="submit">Create</button>
+            <div className="submitButton">
+              <button className="ui button" type="submit">Create</button>
+            </div>
           </form>
         </div>
       </div>
