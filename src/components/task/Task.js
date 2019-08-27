@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import { Icon } from 'semantic-ui-react'
 
 import './Task.scss';
 
@@ -48,14 +47,16 @@ class Task extends React.Component {
             {this.props.taskData.description}
           </label>
         </div>
-        <Icon
+        <div
           className="deleteIcon floatRight"
-          name="trash"
-          onClick={this.onDeleteClick} />
-        <Icon
+          data-tooltip="delete">
+          <i onClick={this.onDeleteClick} className="trash icon"></i>
+        </div>
+        <div
           className="editIcon floatRight"
-          name="edit"
-          onClick={this.onEditClick} />
+          data-tooltip="edit">
+          <i onClick={this.onEditClick} className="edit icon"></i>
+        </div>
       </div>
     )
   }
@@ -75,11 +76,13 @@ class Task extends React.Component {
           <div className="buttons">
             <button
               type="submit"
-              className="ui icon button">
+              className="ui icon button"
+              data-tooltip="save">
               <i className="check circle icon"></i>
             </button>
             <button
               className="ui icon button"
+              data-tooltip="cancel"
               onClick={this.onCancelClick} >
               <i className="cancel icon"></i>
             </button>
