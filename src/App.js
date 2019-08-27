@@ -40,6 +40,15 @@ class App extends React.Component {
     }
   }
 
+  handleNew = async (description) => {
+    try {
+      const newTask = await TaskClient.create(description)
+      const tasks = this.state.tasks.concat([newTask])
+      this.setState({ tasks })
+    } catch (error) {
+      console.log("Couldn't create", error)
+    }
+  }
   handleUpdate = async (taskId, newDescription) => {
     try {
       const updatedTask = await TaskClient.update(taskId, {
@@ -67,7 +76,7 @@ class App extends React.Component {
           To Do
         </Header>
 
-        <TaskForm />
+        <TaskForm handleSubmit={this.handleNew} />
 
         <TaskList
           title="Incomplete Tasks"

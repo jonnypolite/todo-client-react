@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import { Segment } from 'semantic-ui-react'
 
 import './TaskForm.scss';
 
@@ -12,13 +11,11 @@ class TaskForm extends React.Component {
   handleChange = (event) => {
     this.setState({ description: event.target.value })
   }
-  onCancelClick = () => {
-    this.setState({ description: '' })
-  }
 
-  onFormSubmit = () => {
-    this.props.handleUpdate(this.props.taskData.id, this.state.description)
-    this.setState({ editing: false })
+  onFormSubmit = (event) => {
+    this.props.handleSubmit(this.state.description)
+    this.setState({ description: '' })
+    event.preventDefault()
   }
 
   render() {
@@ -28,7 +25,7 @@ class TaskForm extends React.Component {
           <form onSubmit={this.onFormSubmit} className="ui form">
             <div className="field">
               <label> What do you want to do?</label>
-              <input type="text" value={this.state.value} onChange={this.handleChange} />
+              <input type="text" value={this.state.description} onChange={this.handleChange} />
             </div>
             <div className="submitButton">
               <button className="ui button" type="submit">Create</button>

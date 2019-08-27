@@ -1,3 +1,15 @@
+function create(description) {
+  return fetch('/api/todo', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ description })
+  })
+  .then(parseJSON)
+}
+
 function deleteTask(id) {
   return fetch(`/api/todo/${id}`, {
     method: 'DELETE',
@@ -48,6 +60,7 @@ function parseJSON(response) {
 }
 
 const TaskClient = {
+  create,
   deleteTask,
   get,
   getComplete,
