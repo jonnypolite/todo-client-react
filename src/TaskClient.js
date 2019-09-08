@@ -1,3 +1,5 @@
+import Auth from './utils/Auth'
+
 function create(description) {
   return fetch('/api/todo', {
     method: 'POST',
@@ -5,13 +7,13 @@ function create(description) {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ description })
+    body: JSON.stringify({ description, user: Auth.getUser().id })
   })
   .then(parseJSON)
 }
 
 function deleteTask(id) {
-  return fetch(`/api/todo/${id}`, {
+  return fetch(`/api/todo/${id}/?user=${Auth.getUser().id}`, {
     method: 'DELETE',
     headers: {
       'Accept': 'application/json',
@@ -23,22 +25,22 @@ function deleteTask(id) {
 function get(id) {
   // get a specific task
   if (id) {
-    return fetch(`/api/todo/${id}`, { accept: 'application/json' })
+    return fetch(`/api/todo/${id}/?user=${Auth.getUser().id}`, { accept: 'application/json' })
       .then(parseJSON)
   }
 
   // get all of them
-  return fetch(`/api/todo/`, { accept: 'application/json' })
+  return fetch(`/api/todo/?user=${Auth.getUser().id}`, { accept: 'application/json' })
     .then(parseJSON)
 }
 
 function getComplete() {
-  return fetch(`/api/todo/?complete=true`, { accept: 'application/json' })
+  return fetch(`/api/todo/?complete=true&user=${Auth.getUser().id}`, { accept: 'application/json' })
     .then(parseJSON)
 }
 
 function getIncomplete() {
-  return fetch(`/api/todo/?complete=false`, { accept: 'application/json' })
+  return fetch(`/api/todo/?complete=false&user=${Auth.getUser().id}`, { accept: 'application/json' })
     .then(parseJSON)
 }
 
@@ -49,7 +51,7 @@ function update(id, updateData) {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(updateData)
+    body: JSON.stringify(Object.assign(updateData, { user: Auth.getUser().id }))
   })
   .then(parseJSON)
 }
