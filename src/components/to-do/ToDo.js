@@ -49,6 +49,7 @@ class ToDo extends React.Component {
       console.log("Couldn't create", error)
     }
   }
+
   handleUpdate = async (taskId, newDescription) => {
     try {
       const updatedTask = await TaskClient.update(taskId, {
