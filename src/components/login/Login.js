@@ -6,7 +6,8 @@ class Login extends React.Component {
   state = {
     redirectToReferrer: false,
     username: '',
-    password: ''
+    password: '',
+    authError: false
   }
 
   handleChange = (event) => {
@@ -24,6 +25,8 @@ class Login extends React.Component {
     // redirect if it worked, show error if not
     if (loginResponse.success) {
       this.setState({ redirectToReferrer: true })
+    } else {
+      this.setState({ authError: true })
     }
   }
 
@@ -38,7 +41,9 @@ class Login extends React.Component {
     return (
       <div className="loginForm">
         <h1 className="ui header">Authentication Required</h1>
-        <form onSubmit={this.onFormSubmit} className="ui form">
+        <form
+          onSubmit={this.onFormSubmit}
+          className={`ui form ${this.state.authError ? 'error' : ''}`}>
           <div className="field">
             <label>username</label>
             <input
@@ -52,6 +57,9 @@ class Login extends React.Component {
               name="password"
               type="password"
               value={this.state.password} onChange={this.handleChange} />
+          </div>
+          <div className="ui error message">
+            Login failed.
           </div>
           <button className="ui button" type="submit">Login</button>
         </form>
