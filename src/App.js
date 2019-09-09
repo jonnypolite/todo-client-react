@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom'
+import { BrowserRouter as Router, Route, NavLink, Redirect, withRouter } from 'react-router-dom'
 
 import './App.scss'
 import { ToDo } from './components/to-do'
@@ -14,8 +14,19 @@ class App extends React.Component {
         <div className="App">
           <div className="menu">
             <div className="ui secondary vertical pointing menu">
-              <Link className="item" to="/">Home</Link>
-              <Link className="item" to="/todo">To Do</Link>
+              <NavLink
+                exact
+                className="item"
+                activeClassName="active"
+                to="/">
+                Home
+              </NavLink>
+              <NavLink
+                className="item"
+                to="/todo"
+                activeClassName="active">
+                To Do
+              </NavLink>
               <div className="item">
                 <LogoutButton />
               </div>
@@ -68,7 +79,12 @@ const LogoutButton = withRouter(({ history }) => {
 })
 
 function Home() {
-  return <h3>Welcome Home</h3>
+  return (
+    <div>
+      <h1>Welcome!</h1>
+      Check out this super sweet landing page.
+    </div>
+  )
 }
 
 export default App

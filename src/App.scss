@@ -10,10 +10,18 @@
 
   .menu {
     height: 100%;
+
+    .ui.secondary.vertical.pointing.menu {
+      width: 150px;
+      padding-top: 15px;
+    }
   }
 
   .main {
+    height: 100%;
+    width: 100%;
     margin-top: 15px;
     margin-left: 15px;
+    overflow-y: scroll;
   }
 }

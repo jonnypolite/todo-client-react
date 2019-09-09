@@ -2,6 +2,8 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import Auth from '../../utils/Auth'
 
+import './Login.scss'
+
 class Login extends React.Component {
   state = {
     redirectToReferrer: false,
