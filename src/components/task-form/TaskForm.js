@@ -24,7 +24,7 @@ class TaskForm extends React.Component {
         <div className="ui attached segment">
           <form onSubmit={this.onFormSubmit} className="ui form">
             <div className="field">
-              <label> What do you want to do?</label>
+              <label>What do you want to do?</label>
               <input type="text" value={this.state.description} onChange={this.handleChange} />
             </div>
             <div className="submitButton">
