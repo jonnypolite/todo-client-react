@@ -25,23 +25,43 @@ function deleteTask(id) {
 function get(id) {
   // get a specific task
   if (id) {
-    return fetch(`/api/todo/${id}/?user=${Auth.getUser().id}`, { accept: 'application/json' })
-      .then(parseJSON)
+    return fetch(`/api/todo/${id}/?user=${Auth.getUser().id}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(parseJSON)
   }
 
   // get all of them
-  return fetch(`/api/todo/?user=${Auth.getUser().id}`, { accept: 'application/json' })
-    .then(parseJSON)
+  return fetch(`/api/todo/?user=${Auth.getUser().id}`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+  .then(parseJSON)
 }
 
 function getComplete() {
-  return fetch(`/api/todo/?complete=true&user=${Auth.getUser().id}`, { accept: 'application/json' })
-    .then(parseJSON)
+  return fetch(`/api/todo/?complete=true&user=${Auth.getUser().id}`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+  .then(parseJSON)
 }
 
 function getIncomplete() {
-  return fetch(`/api/todo/?complete=false&user=${Auth.getUser().id}`, { accept: 'application/json' })
-    .then(parseJSON)
+  return fetch(`/api/todo/?complete=false&user=${Auth.getUser().id}`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+  .then(parseJSON)
 }
 
 function update(id, updateData) {
