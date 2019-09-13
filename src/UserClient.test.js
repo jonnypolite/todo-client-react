@@ -20,6 +20,12 @@ afterEach(() => {
   mockResponseJson.mockClear()
 })
 
+it('exposes the right methods', () => {
+  expect(Object.keys(UserClient)).toEqual([
+      'login'
+  ])
+})
+
 it('logs in', async () => {
   const response = await UserClient.login('user', 'pass')
 
