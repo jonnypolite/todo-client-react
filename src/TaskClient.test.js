@@ -135,4 +135,5 @@ it('updates a task', async () => {
       },
       body: JSON.stringify(Object.assign(updateData, { user: 5 }))
     })
+    finish(response)
 })
