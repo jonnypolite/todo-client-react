@@ -1,19 +1,19 @@
 import Auth from './utils/Auth'
 
 function create(description) {
-  return fetch('/api/todo', {
+  return fetch(`/api/todo/${Auth.getUser().id}`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ description, user: Auth.getUser().id })
+    body: JSON.stringify({ description })
   })
   .then(parseJSON)
 }
 
 function deleteTask(id) {
-  return fetch(`/api/todo/${id}/?user=${Auth.getUser().id}`, {
+  return fetch(`/api/todo/${Auth.getUser().id}/${id}`, {
     method: 'DELETE',
     headers: {
       'Accept': 'application/json',
@@ -22,20 +22,23 @@ function deleteTask(id) {
   .then(parseJSON)
 }
 
-function get(id) {
-  // get a specific task
+function get({ id, queryParams = {} } = {}) {
+  let path = `/api/todo/${Auth.getUser().id}`
+
   if (id) {
-    return fetch(`/api/todo/${id}/?user=${Auth.getUser().id}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .then(parseJSON)
+    path = `${path}/${id}`
   }
 
-  // get all of them
-  return fetch(`/api/todo/?user=${Auth.getUser().id}`, {
+  const paramKeys = Object.keys(queryParams);
+  if (paramKeys.length) {
+    const params = paramKeys.map((key) => {
+      return `${key}=${queryParams[key]}`
+    }).join('&')
+
+    path = `${path}/?${params}`
+  }
+
+  return fetch(path, {
     method: 'GET',
     headers: {
       'Accept': 'application/json'
@@ -45,33 +48,21 @@ function get(id) {
 }
 
 function getComplete() {
-  return fetch(`/api/todo/?complete=true&user=${Auth.getUser().id}`, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json'
-    }
-  })
-  .then(parseJSON)
+  return get({ queryParams: { complete: true }})
 }
 
 function getIncomplete() {
-  return fetch(`/api/todo/?complete=false&user=${Auth.getUser().id}`, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json'
-    }
-  })
-  .then(parseJSON)
+  return get({ queryParams: { complete: false }})
 }
 
 function update(id, updateData) {
-  return fetch(`/api/todo/${id}`, {
+  return fetch(`/api/todo/${Auth.getUser().id}/${id}`, {
     method: 'PATCH',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(Object.assign(updateData, { user: Auth.getUser().id }))
+    body: JSON.stringify(updateData)
   })
   .then(parseJSON)
 }

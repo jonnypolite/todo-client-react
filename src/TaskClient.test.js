@@ -40,13 +40,13 @@ it('creates a task', async () => {
   const response = await TaskClient.create(description)
 
   expect(mockFetch).toHaveBeenCalledTimes(1)
-  expect(mockFetch).toHaveBeenCalledWith('/api/todo', {
+  expect(mockFetch).toHaveBeenCalledWith('/api/todo/5', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ description, user: 5})
+    body: JSON.stringify({ description })
   })
   finish(response)
 })
@@ -56,7 +56,7 @@ it('deletes a task', async () => {
 
   expect(mockFetch).toHaveBeenCalledTimes(1)
   expect(mockFetch).toHaveBeenCalledWith(
-    `/api/todo/${id}/?user=5`, {
+    `/api/todo/5/${id}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -66,11 +66,11 @@ it('deletes a task', async () => {
 })
 
 it('gets a specific task', async () => {
-  const response = await TaskClient.get(id)
+  const response = await TaskClient.get({ id })
 
   expect(mockFetch).toHaveBeenCalledTimes(1)
   expect(mockFetch).toHaveBeenCalledWith(
-    `/api/todo/${id}/?user=5`, {
+    `/api/todo/5/${id}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json'
@@ -84,7 +84,7 @@ it('gets all the tasks', async () => {
 
   expect(mockFetch).toHaveBeenCalledTimes(1)
   expect(mockFetch).toHaveBeenCalledWith(
-    `/api/todo/?user=5`, {
+    `/api/todo/5`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json'
@@ -98,7 +98,7 @@ it('gets complete tasks', async () => {
 
   expect(mockFetch).toHaveBeenCalledTimes(1)
   expect(mockFetch).toHaveBeenCalledWith(
-    `/api/todo/?complete=true&user=5`, {
+    `/api/todo/5/?complete=true`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json'
@@ -112,7 +112,7 @@ it('gets incomplete tasks', async () => {
 
   expect(mockFetch).toHaveBeenCalledTimes(1)
   expect(mockFetch).toHaveBeenCalledWith(
-    `/api/todo/?complete=false&user=5`, {
+    `/api/todo/5/?complete=false`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json'
@@ -127,13 +127,13 @@ it('updates a task', async () => {
 
   expect(mockFetch).toHaveBeenCalledTimes(1)
   expect(mockFetch).toHaveBeenCalledWith(
-    `/api/todo/${id}`, {
+    `/api/todo/5/${id}`, {
       method: 'PATCH',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(Object.assign(updateData, { user: 5 }))
+      body: JSON.stringify(updateData)
     })
     finish(response)
 })
