@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import { Header, List, Segment } from 'semantic-ui-react'
 
 import './TaskList.scss';
 import { Task } from '../task'
@@ -12,31 +11,35 @@ class TaskList extends React.Component {
       return "Nothing to show!"
     }
     return (
-      <List divided relaxed>
+      <div className="ui relaxed divided list">
         {this.props.tasks.map((task) => {
           return (
-            <List.Item key={task.id}>
+            <div className="item" key={task.id}>
               <Task
                 taskData={task}
                 handleCheck={this.props.handleCheck}
                 handleDelete={this.props.handleDelete}
                 handleUpdate={this.props.handleUpdate} />
-            </List.Item>
+            </div>
           )
         })}
-      </List>
+      </div>
     )
   }
 
   render() {
     return (
       <div className="taskList">
-        <Header as="h1" textAlign="left" attached="top">
-          {this.props.title}
-        </Header>
-        <Segment attached>
-          {this.renderTasks()}
-        </Segment>
+        <div className="ui segments">
+          <div className="ui segment">
+            <h2 className="ui header">
+              {this.props.title}
+            </h2>
+          </div>
+          <div className="ui segment">
+            {this.renderTasks()}
+          </div>
+        </div>
       </div>
     )
   }

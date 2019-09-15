@@ -1,5 +1,4 @@
 import React from 'react'
-import { Header, Icon } from 'semantic-ui-react'
 
 import './ToDo.scss'
 import { TaskClient } from '../../TaskClient'
@@ -72,10 +71,12 @@ class ToDo extends React.Component {
   render() {
     return (
       <div className="ToDo">
-        <Header size="huge" icon>
-          <Icon name="clipboard check" size="big" />
-          To Do
-        </Header>
+        <div className="ui huge header">
+          <i className="clipboard check icon"></i>
+          <div className="content">
+            To Do List
+          </div>
+        </div>
 
         <TaskForm handleSubmit={this.handleNew} />
 
